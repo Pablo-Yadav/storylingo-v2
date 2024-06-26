@@ -5,6 +5,7 @@ import BackButton from '../../ui-components/backButton';
 import PracticeSteps from '../../ui-components/practiseSteps';
 import ProgressBar from '../../ui-components/progressBar';
 import WordSentencesMechanics from '../../mechanicsComponent/wordsSentences';
+import VoiceAnalyser from '../../utils/VoiceAnalyser';
 
 
 const BipinWork = () => {
@@ -14,6 +15,26 @@ const BipinWork = () => {
     const words = ["Hello", "there" ,"Bipin" ,"how" ,"are" ,"you"];
     const matchedChar = "Hello there, how are you";
     const missingWord = "Bipin"
+    const sampleProps = {
+      callUpdateLearner: false,
+      contentId: '12faa77371-f3e0-4aea-814c-ab5486835dfb345',
+      livesData: { totalTargets: 10, totalLives: 5, redLivesToShow: 5, blackLivesToShow: 0, targetsForLives: NaN, targetPerLive: NaN },
+      setLivesData: (newData) => console.log(newData),
+      setVoiceAnimate: (animate) => console.log('Animating voice:', animate),
+      setVoiceText: (text) => console.log('Voice text:', text),
+      setRecordedAudio: (audio) => console.log('Recorded audio:', audio),
+      setEnableNext: (enable) => console.log('Enable next:', enable),
+      setOpenMessageDialog: (dialog) => console.log('Open message dialog:', dialog),
+      isShowCase: false,
+      dontShowListen: false,
+      showOnlyListen: undefined,
+      originalText: 'Sabari asked Ammachi if they could make coconut barfi.',
+      playTeacherAudio: ()=>{console.log("hello there")},
+      contentType: 'sentence',
+      currentLine: 0,
+      setEnableNext: undefined
+    };
+    
     const highlightWords =(word) => {
         if (word.includes(missingWord)) {
           return (
@@ -63,9 +84,8 @@ const BipinWork = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "100vw",
-                height: "100vh",
-                position: "fixed",
+                width: "100%",
+                // position: "fixed",
                 background: "rgba(0, 0, 0, 0.5)",
                 zIndex: 9999,
             }}
@@ -73,7 +93,6 @@ const BipinWork = () => {
             <Box
                 sx={{
                     width: '100%',
-                    minHeight: '100%',
                     borderRadius: "20px",
                     display: "flex",
                     flexDirection: "column",
@@ -102,8 +121,12 @@ const BipinWork = () => {
                 </div>
                 <div>
                     <span>Word sentence</span>
-                    <div><WordSentencesMechanics  {...{words, matchedChar, highlightWords}} /></div>
+                    <div><WordSentencesMechanics  {...{words, matchedChar, highlightWords}} />
+                    <span>Voice Analyzer</span>
+                    <div style={{display:'flex', justifyContent:"center"}}><VoiceAnalyser {...sampleProps} /></div>
+                    </div>
                 </div>
+                
             </Box>
         </Box>
     )
